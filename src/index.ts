@@ -6,7 +6,7 @@ import { registerWorkspaceTools } from "./tools/workspaces.js";
 import { registerModuleTools } from "./tools/modules.js";
 import { registerVariableTools } from "./tools/variables.js";
 
-async function startServer() {
+async function runServer() {
   console.error("Starting Terrakube MCP Server...");
   
   const server = new McpServer({
@@ -28,15 +28,30 @@ async function startServer() {
   console.error("Connecting to transport...");
   await server.connect(transport);
   console.error("Connected to transport");
+  
+  // Set up cleanup for graceful shutdown
+  const cleanup = async () => {
+    console.error("Shutting down server...");
+    try {
+      await transport.close();
+      console.error("Server shut down successfully");
+    } catch (error) {
+      console.error("Error during shutdown:", error);
+    }
+    process.exit(0);
+  };
+
+  process.on("SIGINT", cleanup);
+  process.on("SIGTERM", cleanup);
 }
 
-// Start the server if this file is run directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  console.error("Starting server from command line");
-  startServer().catch(err => {
-    console.error("Error starting server:", err);
-    process.exit(1);
-  });
+// Export for programmatic usage
+export async function startServer() {
+  return runServer();
 }
 
-export { startServer };
+// Run directly when executed as a script
+runServer().catch(error => {
+  console.error("Fatal error in runServer():", error);
+  process.exit(1);
+});
