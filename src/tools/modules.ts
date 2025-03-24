@@ -17,7 +17,7 @@ export function registerModuleTools(server: McpServer) {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${organizationId}/module`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -46,7 +46,7 @@ export function registerModuleTools(server: McpServer) {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${organizationId}/module/${moduleId}`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -79,13 +79,18 @@ export function registerModuleTools(server: McpServer) {
         method: "POST",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
         body: JSON.stringify({
-          name,
-          description,
-          registry,
-          provider
+          data: {
+            type: "module",
+            attributes: {
+              name,
+              description,
+              registry,
+              provider
+            }
+          }
         })
       });
 
@@ -119,13 +124,19 @@ export function registerModuleTools(server: McpServer) {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
         body: JSON.stringify({
-          name,
-          description,
-          registry,
-          provider
+          data: {
+            type: "module",
+            id: moduleId,
+            attributes: {
+              name,
+              description,
+              registry,
+              provider
+            }
+          }
         })
       });
 

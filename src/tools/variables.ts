@@ -18,7 +18,7 @@ export function registerVariableTools(server: McpServer): void {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${organizationId}/workspace/${workspaceId}/variable`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -48,7 +48,7 @@ export function registerVariableTools(server: McpServer): void {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${organizationId}/workspace/${workspaceId}/variable/${variableId}`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -83,14 +83,19 @@ export function registerVariableTools(server: McpServer): void {
         method: "POST",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
         body: JSON.stringify({
-          key,
-          value,
-          description,
-          category,
-          sensitive
+          data: {
+            type: "variable",
+            attributes: {
+              key,
+              value,
+              description,
+              category,
+              sensitive
+            }
+          }
         })
       });
 
@@ -126,14 +131,20 @@ export function registerVariableTools(server: McpServer): void {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
         body: JSON.stringify({
-          key,
-          value,
-          description,
-          category,
-          sensitive
+          data: {
+            type: "variable",
+            id: variableId,
+            attributes: {
+              key,
+              value,
+              description,
+              category,
+              sensitive
+            }
+          }
         })
       });
 

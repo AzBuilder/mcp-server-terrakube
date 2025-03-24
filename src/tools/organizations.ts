@@ -15,7 +15,7 @@ export function registerOrganizationTools(server: McpServer) {
       const response = await fetch(`${CONFIG.apiUrl}/organization`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -43,7 +43,7 @@ export function registerOrganizationTools(server: McpServer) {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${id}`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -69,29 +69,36 @@ export function registerOrganizationTools(server: McpServer) {
       description: z.string().optional().describe("Organization description")
     },
     async ({ name, description = "" }) => {
+      const body = JSON.stringify({
+        data: {
+          type: "organization",
+          attributes: {
+            name,
+            description
+          }
+        }
+      });
+
       const response = await fetch(`${CONFIG.apiUrl}/organization`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
-        body: JSON.stringify({
-          name,
-          description
-        })
+        body: body
       });
 
-      if (!response.ok) {
+      if (response.status === 201) {
+        const data = await response.json();
+        return {
+          content: [{
+            type: "text",
+            text: JSON.stringify(data, null, 2)
+          }]
+        };
+      } else {
         throw new Error(`Failed to create organization: ${response.statusText}`);
       }
-
-      const data = await response.json();
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify(data, null, 2)
-        }]
-      };
     }
   );
 
@@ -104,16 +111,24 @@ export function registerOrganizationTools(server: McpServer) {
       description: z.string().optional().describe("New organization description")
     },
     async ({ id, name, description }) => {
+      const body = JSON.stringify({
+        data: {
+          type: "organization",
+          id,
+          attributes: {
+            name,
+            description
+          }
+        }
+      });
+
       const response = await fetch(`${CONFIG.apiUrl}/organization/${id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
-        body: JSON.stringify({
-          name,
-          description
-        })
+        body: body
       });
 
       if (!response.ok) {

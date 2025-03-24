@@ -11,16 +11,6 @@ export const apiClient = axios.create({
   timeout: 30000 // Default timeout of 30 seconds
 });
 
-// Create axios instance for registry calls
-export const registryClient = axios.create({
-  baseURL: `${CONFIG.apiUrl}/registry`,
-  headers: {
-    Authorization: `Bearer ${CONFIG.patToken}`,
-    "Content-Type": "application/vnd.api+json",
-  },
-  timeout: 30000 // Default timeout of 30 seconds
-});
-
 // Helper function to handle API errors
 export function handleApiError(error: any): string {
   if (axios.isAxiosError(error)) {

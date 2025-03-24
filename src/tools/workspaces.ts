@@ -13,7 +13,7 @@ export function registerWorkspaceTools(server: McpServer) {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${organizationId}/workspace`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -42,7 +42,7 @@ export function registerWorkspaceTools(server: McpServer) {
       const response = await fetch(`${CONFIG.apiUrl}/organization/${organizationId}/workspace/${workspaceId}`, {
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         }
       });
 
@@ -76,14 +76,19 @@ export function registerWorkspaceTools(server: McpServer) {
         method: "POST",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
         body: JSON.stringify({
-          name,
-          description,
-          terraformVersion,
-          vcsProvider,
-          vcsRepo
+          data: {
+            type: "workspace",
+            attributes: {
+              name,
+              description,
+              terraformVersion,
+              vcsProvider,
+              vcsRepo
+            }
+          }
         })
       });
 
@@ -118,14 +123,20 @@ export function registerWorkspaceTools(server: McpServer) {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${CONFIG.patToken}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/vnd.api+json"
         },
         body: JSON.stringify({
-          name,
-          description,
-          terraformVersion,
-          vcsProvider,
-          vcsRepo
+          data: {
+            type: "workspace",
+            id: workspaceId,
+            attributes: {
+              name,
+              description,
+              terraformVersion,
+              vcsProvider,
+              vcsRepo
+            }
+          }
         })
       });
 
