@@ -1,0 +1,40 @@
+{
+  "name": "@terrakube/mcp-server-terrakube",
+  "version": "1.0.5",
+  "description": "Model Context Protocol tools for Terrakube operations",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "mcp-server-terrakube": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-esm src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "terrakube",
+    "terraform",
+    "tools"
+  ],
+  "author": "Terrakube",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "axios": "^1.6.7",
+    "debug": "^4.3.4",
+    "dotenv": "^16.4.7",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.11.19",
+    "@types/uuid": "^9.0.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
