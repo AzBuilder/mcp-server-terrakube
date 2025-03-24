@@ -140,17 +140,16 @@ export function registerWorkspaceTools(server: McpServer) {
         })
       });
 
-      if (!response.ok) {
+      if (response.status === 204) {
+        return {
+          content: [{
+            type: "text",
+            text: "Workspace updated successfully"
+          }]
+        };
+      } else {
         throw new Error(`Failed to update workspace: ${response.statusText}`);
       }
-
-      const data = await response.json();
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify(data, null, 2)
-        }]
-      };
     }
   );
 }

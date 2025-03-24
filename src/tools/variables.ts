@@ -148,17 +148,16 @@ export function registerVariableTools(server: McpServer): void {
         })
       });
 
-      if (!response.ok) {
+      if (response.status === 204) {
+        return {
+          content: [{
+            type: "text",
+            text: "Variable updated successfully"
+          }]
+        };
+      } else {
         throw new Error(`Failed to update variable: ${response.statusText}`);
       }
-
-      const data = await response.json();
-      return {
-        content: [{
-          type: "text",
-          text: JSON.stringify(data, null, 2)
-        }]
-      };
     }
   );
 }

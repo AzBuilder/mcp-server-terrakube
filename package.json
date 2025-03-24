@@ -1,6 +1,6 @@
 {
   "name": "@terrakube/mcp-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Terrakube Model Context Protocol Server",
   "type": "module",
   "main": "dist/index.js",
