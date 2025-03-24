@@ -1,0 +1,9 @@
+src/
+.git/
+.gitignore
+.npmignore
+tsconfig.json
+*.log
+.env
+.env.example
+README.md 
