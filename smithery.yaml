@@ -1,0 +1,37 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - TERRAKUBE_API_URL
+      - TERRAKUBE_PAT_TOKEN
+      - TERRAKUBE_ORGANIZATION
+    properties:
+      TERRAKUBE_API_URL:
+        type: string
+        description: API URL for Terrakube.
+      TERRAKUBE_PAT_TOKEN:
+        type: string
+        description: Personal access token for Terrakube.
+      TERRAKUBE_ORGANIZATION:
+        type: string
+        description: Organization name in Terrakube.
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: {
+        TERRAKUBE_API_URL: config.TERRAKUBE_API_URL,
+        TERRAKUBE_PAT_TOKEN: config.TERRAKUBE_PAT_TOKEN,
+        TERRAKUBE_ORGANIZATION: config.TERRAKUBE_ORGANIZATION
+      }
+    })
+  exampleConfig:
+    TERRAKUBE_API_URL: https://api.terrakube.example.com
+    TERRAKUBE_PAT_TOKEN: dummy-pat-token
+    TERRAKUBE_ORGANIZATION: example-org
