@@ -1,11 +1,11 @@
 {
-  "name": "@terrakube/mcp-server-terrakube",
-  "version": "1.0.11",
+  "name": "@terrakube/mcp-server",
+  "version": "0.1.1",
   "description": "Terrakube Model Context Protocol Server",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "mcp-server-terrakube": "dist/index.js"
+    "mcp-server": "dist/index.js"
   },
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",

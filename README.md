@@ -1,6 +1,7 @@
 # Terrakube MCP Server
 
 [![smithery badge](https://smithery.ai/badge/@AzBuilder/mcp-server-terrakube)](https://smithery.ai/server/@AzBuilder/mcp-server-terrakube)
+<br/>
 A Model Context Protocol (MCP) server for Terrakube operations, enabling workspace management, variable handling, module operations, and organization management.
 
 <a href="https://glama.ai/mcp/servers/@AzBuilder/mcp-server-terrakube">
@@ -195,7 +196,6 @@ Create a `.env` file in the root directory with the following variables:
 ```env
 TERRAKUBE_API_URL=<your-terrakube-api-url>
 TERRAKUBE_PAT_TOKEN=<your-personal-access-token>
-TERRAKUBE_ORGANIZATION=<your-organization-name>
 ```
 
 ### Installing via Smithery
@@ -206,11 +206,11 @@ To install Terrakube MCP Server for Claude Desktop automatically via [Smithery](
 npx -y @smithery/cli install @AzBuilder/mcp-server-terrakube --client claude
 ```
 
-### Installation
+### Development
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/terrakube-mcp-server.git
+   git clone https://github.com/azbuilder/terrakube-mcp-server.git
    cd terrakube-mcp-server
    ```
 
@@ -235,12 +235,11 @@ To use this with Claude Desktop, add the following to your `claude_desktop_confi
       "command": "npx",
       "args": [
         "-y",
-        "@terrakube/mcp-server-terrakube"
+        "@terrakube/mcp-server"
       ],
       "env": {
         "TERRAKUBE_API_URL": "<YOUR_API_URL>",
-        "TERRAKUBE_PAT_TOKEN": "<YOUR_PAT_TOKEN>",
-        "TERRAKUBE_ORGANIZATION": "<YOUR_ORGANIZATION>"
+        "TERRAKUBE_PAT_TOKEN": "<YOUR_PAT_TOKEN>"
       }
     }
   }
